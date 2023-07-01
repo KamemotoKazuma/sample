@@ -1,0 +1,2 @@
+module JujusHelper
+end

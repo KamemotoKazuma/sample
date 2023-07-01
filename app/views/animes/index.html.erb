@@ -1,0 +1,95 @@
+<link rel="stylesheet" type="text/css" href="stylesheets/index.css">
+<%= link_to 'ホーム', :controller => "hello", :action => "link" %>
+
+
+
+
+
+<body>  
+  <header class="header-nav">
+  <nav>投稿一覧
+  </nav>
+    <nav>
+      <a href=".first-block">Home</a>
+    </nav>
+    <nav><a href=".second-block">
+      <%= link_to "新規投稿へ",animes_new_path  %></a>
+    </nav>  
+    <nav><a href=".third-block">
+      <%= button_to 'ログアウト', destroy_user_session_path, method: :delete %></a>
+    </nav>   
+  </header>
+
+  <div class="first-block">
+    <div class="box">
+      <%= form_tag({controller:"animes",action:"index"}, method: :get) do %>
+        <%= text_field_tag :search %>
+        <%= submit_tag '検索する'  %>
+      <% end %>    
+  </div>
+
+  <div class="second-block">
+
+    
+        <div class="card-container">
+          <% @animes.each do |t| %>
+            <div class="anime">
+              
+              <div class="card-skin">
+
+                <div class="card__imgframe"><%= image_tag t.picture_url, size: "250x200" if t.picture? %></div>
+                <div class="card__textbox">
+                
+                  <div class="card__titletext">
+                    <p><%= t.word %></p>
+                  </div>
+
+                  <div class="card__overviewtext">
+                    <%= t.character %>
+                    <%= t.title %>
+                  
+                  
+                    <% if user_signed_in? %>
+                      <% if current_user.already_liked?(t) %>
+                        <%= button_to anime_like_path(id: t.id, anime_id: t.id), method: :delete do %>
+                        <i class="fas fa-heart"></i><%= t.likes.count %>
+                      <% end %>
+                      <% else %>
+                        <%= button_to anime_likes_path(id: t.id, anime_id: t.id), method: :post do %>
+                        <i class="far fa-heart"></i><%= t.likes.count %>
+                      <% end %>
+                    <% end %>
+                      <% else %>
+                      <i class="far fa-heart"></i><%= t.likes.count %>
+                    <% end %>
+                    
+                    <%= link_to "コメント一覧へ", anime_path(t.id) %>
+                    <%= link_to "編集する", edit_anime_path(t.id) %>
+                    <%= button_to "削除する", anime_path(t.id), method: :delete %>
+                  </div>
+                </div>
+              </div>
+            </div> 
+          <% end %>
+        </div>
+      
+    </div>
+   
+  </div>
+
+  <div class="third-block">
+  
+  </div>
+    
+  </body>
+    
+
+<footer>
+     <small>© 2020 ○○○○</small>
+</footer>
+
+<div class="aaa-container"> 
+
+
+
+

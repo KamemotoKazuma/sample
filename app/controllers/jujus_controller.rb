@@ -1,0 +1,3 @@
+class JujusController < ApplicationController
+   
+end

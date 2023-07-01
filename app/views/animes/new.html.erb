@@ -1,0 +1,54 @@
+<h1>セリフ掲示板</h1>
+<h3>新規セリフ</h3>
+<%= form_for @anime do |f| %>
+ 
+  <div class="field">
+    <%= f.label :キャラ名 %>
+    <%= f.text_field :character, :size => 30 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :タイトル名 %>
+    <%= f.text_field :title, :size => 30 %>
+    </div>
+
+    <div class="field">
+    <%= f.label :セリフ %>
+    <%= f.text_field :word, :size => 30 %>
+  </div>
+
+  
+
+  <div class="field">
+    <%= f.label :あなたのお名前 %>
+    <%= f.text_field :name, :size => 30 %>
+  </div>
+
+
+  <div class="field">
+  <%= f.label :コメント %>
+  <%= f.text_field :comment, :size => 30 %>
+</div>
+<div class="field">
+  <%= f.label :画像 %>
+  <%= f.file_field :picture %>
+</div>
+
+#タグ
+<div class='form-group'>
+<%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
+    <div class='form-check'>
+        <%= tag.label class: 'form-check-label' do %>
+            <%= tag.check_box class: 'form-check-input' %>
+            <%= tag.text %>
+        <% end %>
+    </div>
+<% end %>
+</div>
+
+
+
+  <%= f.submit "投稿する" %>
+<% end %>
+
+<%= link_to "一覧に戻る", animes_path %>
